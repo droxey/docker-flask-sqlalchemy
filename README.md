@@ -1,12 +1,42 @@
-# Lab - Books App
+# Lab - Books App w/ Docker (ACS 3220)
 
-## Why should I do this?
+1. [Adding Docker to an Existing Codebase](#adding-docker-to-an-existing-codebase)
+1. [Original Lab README](#original-lab-readme)
 
-This lab will guide you through the process of writing SQLAlchemy models and making queries to create, read, and update, and delete data in your database. By the end of this lab, you should be ready to independently write and use model classes for your projects. 
+---
 
-## Setup
+## Adding Docker to an Existing Codebase
 
-Clone this repository to your computer. 
+> For students enrolled in ACS 3220 ONLY: [Docker, DevOps, and Deployments](https://bit.ly/acs3220).
+
+1. Create a file named `Dockerfile` in the root of the repository.
+1. Write the code to Dockerize the project.
+1. Build the Docker image:
+
+    ```bash
+    docker build . -t models-lab
+    ```
+
+1. Run the Docker image:
+    ```bash
+    docker run -p 5001:5001 --rm --name flask-models-lab models-lab
+    ```
+
+1. Access the website at `computername.local:5001`.
+    - You can find the Computer Name for your Mac at the top of the `System Preferences` > `Sharing` preference pane:
+
+    <img src="https://cleanshot-cloud-fra.s3.eu-central-1.amazonaws.com/media/7865/FmPmzcmfiQtB5WB7Cijh1uguov4YY07KnpHBFsDP.jpeg?X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEHQaDGV1LWNlbnRyYWwtMSJIMEYCIQD8CozrMDCmE0VWB%2BT%2BkSY87M6ErDmEHLVm8Hap62jwOgIhAICo7qXyHCAFcqZoCL3SkCEpi6jk%2F5YORstmpE2gkl0lKp8CCB0QABoMOTE5NTE0NDkxNjc0IgzngttbX2YfFeHLAIcq%2FAG%2FkYfi44iE3pd3zAQR18nQLDoRABRpkRrqasVIL9NgfmqLleJEDAOb8aEKnwSPzFUGyPKSAlmSOBIV3NbDTRQSzHLIxZllo7MTm1t6d0VeLJVfVNAmYa8FmSYnK56f6%2BJsLnoLTkHHFu41iX3UY2Tvg7I6ASLhqSCuDOlM9Iz06pLJcEwnzrharr%2FA6bVudTGdw5FxNwFJzmBbJFF0%2F%2BdedPXMC0s%2F4JbFKfqDykLoYOGGBspIyLyt%2FNfAZ11GhL%2FiDXvg9Lvi9XcebwprijoBlFcZobywxxJ3SL0e4fexrYQNMKt9szhg8oLuySp%2BHq0TIcMX5B%2BdA4h9L54w3oCBjAY6mQHZKzWduHqiY6taGpweZuLgyyCl0sm7%2Bj4GuzW3GtwMETbgHB9RQ55LQJZxCsXH375Ur7QZBl7GNv8ug78jXkKeQ4G318Z0IAKcfINV2NLGxJv1x3if%2BgwVn4ypa8eeFnGkzSDx6ng%2BXl8kvM7do8IACo98dSe7NtkKv3FOzmZjgnS%2BkJQyT47ilhBF%2B3AEMNhYftYX%2Fg3ptGY%3D&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=ASIA5MF2VVMNFEZIT4WG%2F20211101%2Feu-central-1%2Fs3%2Faws4_request&X-Amz-Date=20211101T202834Z&X-Amz-SignedHeaders=host&X-Amz-Expires=300&X-Amz-Signature=98fd3d9b3571195c9e7753263045b095b8ed3dd504a925660e0d5c32a86a04ba" width="100%">
+
+---
+## Original Lab README
+
+### Why should I do this?
+
+This lab will guide you through the process of writing SQLAlchemy models and making queries to create, read, and update, and delete data in your database. By the end of this lab, you should be ready to independently write and use model classes for your projects.
+
+### Setup
+
+Clone this repository to your computer.
 
 **Take a look at the code** - it looks a bit different than what you're used to. Namely, the code is now separated out into several files rather than being written in a single `app.py` file. Since we're now writing model code as well as route code, this will help us to maintain some structure and separation. (Also, it's really handy to be able to look at your models code side-by-side with your routes code!)
 
@@ -28,7 +58,7 @@ Then you can run the following to run the Flask server:
 python3 app.py
 ```
 
-## Part 1: Making Queries
+### Part 1: Making Queries
 
 Before we start writing our own models, it's a good idea to get the hang of what model classes look like, and how to make queries.
 
@@ -48,7 +78,7 @@ python3
 
 You should see a command prompt appear that looks like `>>>`. This means that we are running the interpreter. If you ever want to quit the interpreter, you can press `Ctrl` + `D` or type in `quit()`.
 
-### Retrieving All Objects
+#### Retrieving All Objects
 
 First, let's try querying the tables to see what data already exists in the database. Run the following commands:
 
@@ -66,7 +96,7 @@ Now, we have a better picture of what data is already in the database! You'll no
 
 **Go to `books_app/models.py` and modify the `__repr__()` method of the Book class to show more information.** Then, restart the Python interpreter (so that it'll grab those changes) and try your queries again.
 
-### Filtering our Queries
+#### Filtering our Queries
 
 Ok, great, now we know how to retrieve all entries in a database table - but how do we retrieve just one? Let's try out a few queries to get the hang of it.
 
@@ -107,7 +137,7 @@ Before moving on, **check your understanding** by writing queries for the follow
 - Get all books with the genre with `name='fiction'`. (HINT: Try querying the `genre` table.)
 - **Stretch Challenge**: Get all books that were published after 1980. (HINT: Check out [this tutorial](https://www.tutorialspoint.com/sqlalchemy/sqlalchemy_orm_filter_operators.htm) on using filter operations.)
 
-### Creating New Objects
+#### Creating New Objects
 
 Next up, let's try adding some new `Book` and `Author` entries.
 
@@ -129,7 +159,7 @@ _Aside: Technically, we don't need to add `new_author` in the `db.session.add()`
 
 To check your understanding, try adding a few more books and authors to the database.
 
-### Updating Objects
+#### Updating Objects
 
 Updating objects with SQLAlchemy is very easy! We just need to get the object, modify its fields, and add/commit it to the database.
 
@@ -148,11 +178,11 @@ Again, it's not necessary to add the `Genre` object `g1` to the db session as it
 
 To check your understanding, try updating the books you created earlier.
 
-### Deleting Objects
+#### Deleting Objects
 
 If you want to try deleting objects, check out [this Stackoverflow post](https://stackoverflow.com/questions/27158573/how-to-delete-a-record-by-id-in-flask-sqlalchemy) for examples of how to do it.
 
-## Part 2: Writing Models
+### Part 2: Writing Models
 
 Now that we've gotten the hang of writing queries, let's try out writing a new model class. We'll be writing a model for `User` as well as an extra table `favorite_book_table`. The relationships should look like this:
 
@@ -166,13 +196,13 @@ In `books_app/models.py`, **write a model class for the `User` entity**. It shou
 
 In addition, **create a `db.Table` instance and call it `favorite_book_table`**. It should contain two foreign keys, one each to the `User` and `Book` tables. You can use the `book_genre_table` as an example of how to write it.
 
-## Part 3: More Queries
+### Part 3: More Queries
 
 Now that we have our new models, we can write some queries! **Quit and re-run the Python interpreter** so that it grabs your new changes.
 
 Now, **create at least two instances of `User` and give each user at least two favorite books.** Feel free to reference Part 1 if you need examples of how to do this! Make sure that your changes are actually saved to the database by running another query for all objects of the `User` class.
 
-### Working with Routes
+#### Working with Routes
 
 Luckily, querying our SQL data in a Python file is exactly the same as doing so on the command line! Let's test out our skills by adding some features to the Flask application.
 
@@ -182,7 +212,7 @@ Next, **complete the TODOs for the `profile()` route.** Once this is complete, i
 
 If you have finished all of the steps so far, congratulations - you have mastered the basics of SQLAlchemy!
 
-## Resources
+### Resources
 
 If you'd like more resources on working with SQLAlchemy models, check out the following:
 
